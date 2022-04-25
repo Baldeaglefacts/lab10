@@ -1,13 +1,24 @@
 <template>
   <div id="app">
     <h1>Would you rather...</h1>
+    <h2>Please make your choice!</h2>
 
-    <would-you-rather v-bind:question="wyrQuestion"
-    v-bind:answer1="wyrAnswer1"
-    v-bind:answer2="wyrAnswer2"
-    v-on:answer-changed="answerChanged"></would-you-rather>
+    <div v-for="question in questions">
+      <would-you-rather v-bind:id="question.id"
+                        v-bind:question="question.wyrQuestion"
+                        v-bind:answer1="question.wyrAnswer1"
+                        v-bind:answer2="question.wyrAnswer2"
+                        v-on:answer-changed="answerChanged">
+      </would-you-rather>
+    </div>
 
-    <p>{{ userSelectionMessage }}</p>
+    <p>So, you have chosen...</p>
+    <ul>
+      <li>{{question1Answer}}</li>
+      <li>{{question2Answer}}</li>
+      <li>{{question3Answer}}</li>
+    </ul>
+    <p>... very interesting</p>
   </div>
 </template>
 
@@ -21,17 +32,38 @@ export default {
   },
   data(){
     return {
-      wyrQuestion: 'Would you rather be a wizard or a superhero?',
-      wyrAnswer1: 'Wizard',
-      wyrAnswer2: 'Superhero',
-      userSelectionMessage: ''
+      questions: [
+        {
+          id: 1,
+          wyrQuestion: 'Would you rather be a wizard or a superhero?',
+          wyrAnswer1: 'Wizard',
+          wyrAnswer2: 'Superhero',
+        },
+        {
+          id: 2,
+          wyrQuestion: 'Would you rather live in a place with a lot of trees or live in a place near the ocean?',
+          wyrAnswer1: 'Trees',
+          wyrAnswer2: 'Ocean',
+        },
+        {
+          id: 3,
+          wyrQuestion: 'Would you rather be incredibly lucky with average intelligence or incredibly smart with average luck?',
+          wyrAnswer1: 'incredibly lucky',
+          wyrAnswer2: 'incredibly smart'
+        }
+      ],
+      question1Answer: '',
+      question2Answer: '',
+      question3Answer: '',
     }
   },
   methods: {
-    answerChanged(choice) {
-      this.userSelectionMessage = `So, you have chosen ${choice}... very interesting`
+    answerChanged(choice, id) {
+      if (id == 1) {this.question1Answer = choice}
+      if (id == 2) {this.question2Answer = choice}
+      if (id == 3) (this.question3Answer = choice)
+      }
     }
-  }
 }
 </script>
 

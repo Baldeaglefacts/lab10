@@ -1,18 +1,17 @@
 <template>
   <div class="wyr">
-    <h2>Please make your choice!</h2>
+      <h3>{{id}}. {{ question }}</h3>
 
-    <h3>{{ question }}</h3>
-
-    <input type="radio" v-model="choice" v-bind:value="answer1" v-on:change="choiceMade"><label>{{answer1}}</label>
-    <input type="radio" v-model="choice" v-bind:value="answer2" v-on:change="choiceMade"><label>{{answer2}}</label>
-  </div>
+      <input type="radio" v-model="choice" v-bind:value="answer1" v-on:change="choiceMade"><label>{{answer1}}</label>
+      <input type="radio" v-model="choice" v-bind:value="answer2" v-on:change="choiceMade"><label>{{answer2}}</label>
+    </div>
 </template>
 
 <script>
 export default {
   name: 'WouldYouRather',
   props: {
+    id: Number,
     question: String,
     answer1: String,
     answer2: String
@@ -24,7 +23,7 @@ export default {
   },
   methods: {
     choiceMade() {
-      this.$emit('answer-changed', this.choice)
+      this.$emit('answer-changed', this.choice, this.id)
     }
   }
 }
